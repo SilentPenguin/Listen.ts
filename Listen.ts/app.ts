@@ -6,22 +6,21 @@ class MyClass {
     @sender
     firstSender(input: boolean) {
         console.log("1");
-        console.log(this.value);
     }
 
     @sender
     secondSender(input: boolean) {
         console.log("2");
-        console.log(this.value);
     }
 
     @receiver
     myReciever (input: boolean) {
         console.log("3");
-        console.log(this.value);
-    }
-
-    constructor(value: number) {
-        this.value = value;
     }
 }
+
+var myInstance: MyClass = new MyClass()
+
+Listen.to.sender(myInstance.firstSender).with.receiver(myInstance.myReciever);
+
+myInstance.firstSender(true);
