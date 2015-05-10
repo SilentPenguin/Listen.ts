@@ -13,8 +13,9 @@
     function MessengerConstructor<T extends Function>(key: string, func: T): any {
         return function (): IMessenger<T> {
             var value = function (...rest: any[]) {
-                func.apply(this, rest);
+                var result = func.apply(this, rest);
                 this[key].targets.forEach(item => item.trigger.apply(item, rest));
+                return result;
             }.bind(this);
 
             Object.defineProperty(this, key, { value: value });
@@ -36,8 +37,9 @@
     function SenderConstructor<T extends Function>(key: string, func: T): any {
         return function (): ISender<T> {
             var value = function (...rest: any[]) {
-                func.apply(this, rest);
+                var result = func.apply(this, rest);
                 this[key].targets.forEach(item => item.trigger.apply(item, rest));
+                return result;
             }.bind(this);
 
             Object.defineProperty(this, key, { value: value });
