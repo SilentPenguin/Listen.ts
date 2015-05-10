@@ -82,9 +82,10 @@
         receiver: IReceiver<T>;
         condition: (...rest: any[]) => boolean;
 
-        constructor(sender: T, receiver: T){
+        constructor(sender: T, receiver: T) {
             this.sender = <any>sender;
             this.receiver = <any>receiver;
+
             this.sender.targets.push(this);
             this.receiver.sources.push(this);
         }
@@ -118,19 +119,30 @@
         sender: ISender<T>;
         with: IWith<T> = With.call(this);
         withhold: IWithhold<T> = Withhold.call(this);
+
         constructor(sender: T) {
             this.sender = <any>sender;
+        }
+
+        connection(receiver: T): IConnection<T> {
+            var result: IConnection<T>;
+            this.sender.targets.forEach(item => result = item.receiver == <any>receiver ? item : result);
+            return result;
+        }
+
+        remove(receiver: T): void {
+            var connection: IConnection<T> = this.connection(receiver);
+            if (connection) {
+                connection.sender.targets = connection.sender.targets.filter(item => item != connection);
+                connection.receiver.sources = connection.receiver.sources.filter(item => item != connection);
+            }
         }
     }
 
     function With<T extends Function>(): IWith<T> {
         return {
-            sender: (sender: T): IConnection<T> => {
-                var result: IConnection<T> = new Connection(this.sender, sender);
-                return result;
-            },
             receiver: (receiver: T): IConnection<T> => {
-                var result: IConnection<T> = new Connection(this.sender, receiver);
+                var result: IConnection<T> = this.connection(receiver) || new Connection(this.sender, receiver);
                 return result;
             }
         }
@@ -138,11 +150,8 @@
 
     function Withhold<T extends Function>(): IWithhold<T> {
         return {
-            sender: (sender: T): void => {
-                var result: Connection<T> = new Connection(this.sender, sender);
-            },
             receiver: (receiver: T): void => {
-                var result: Connection<T> = new Connection<T>(this.sender, receiver);
+                this.remove(receiver);
             }
         }
     }
@@ -169,7 +178,7 @@
         sources: IConnection<T>[];
     }
 
-    interface ISender<T extends Function> extends IReceiver<T> {
+    interface ISender<T extends Function> extends Function {
         targets: IConnection<T>[];
     }
 
@@ -178,7 +187,6 @@
     interface IConnection<T extends Function> {
         sender: ISender<T>;
         receiver: IReceiver<T>;
-        trigger: (...rest:any[]) => void;
         when: IWhen<T>;
     }
 
@@ -196,12 +204,10 @@
     }
 
     interface IWith<T extends Function> {
-        sender: (sender: T) => IConnection<T>;
         receiver: (sender: T) => IConnection<T>;
     }
 
     interface IWithhold<T extends Function> {
-        sender: (sender: T) => void;
         receiver: (sender: T) => void;
     }
 

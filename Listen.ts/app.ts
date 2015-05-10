@@ -22,8 +22,7 @@ class MyClass {
 var myInstance: MyClass = new MyClass();
 
 Listen.to.sender(myInstance.firstSender).with.receiver(myInstance.myReciever).when(input => input);
-Listen.to.sender(myInstance.firstSender).with.sender(myInstance.secondSender).when(input => input);
 Listen.to.sender(myInstance.secondSender).with.receiver(myInstance.myReciever).when(input => input);
 
 myInstance.firstSender(true);
-myInstance.secondSender(false);
+myInstance.secondSender(true);
