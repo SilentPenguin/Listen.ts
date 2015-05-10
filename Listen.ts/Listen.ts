@@ -37,9 +37,7 @@
     function SenderConstructor<T extends Function>(key: string, func: T): any {
         return function (): ISender<T> {
             var value = function (...rest: any[]) {
-                var result = func.apply(this, rest);
                 this[key].targets.forEach(item => item.trigger.apply(item, rest));
-                return result;
             }.bind(this);
 
             Object.defineProperty(this, key, { value: value });
