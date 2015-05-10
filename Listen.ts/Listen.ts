@@ -94,6 +94,10 @@
                 this.receiver.apply(null, rest);
             }
         }
+
+        when(condition: T) {
+            this.condition = <any>condition;
+        }
     }
     
     /*----------------*
@@ -175,9 +179,9 @@
         sender: ISender<T>;
         receiver: IReceiver<T>;
         trigger: (...rest:any[]) => void;
+        when: IWhen<T>;
     }
 
-    //Query Interfaces
     interface ITo {
         sender: IToSender;
     }
@@ -201,12 +205,8 @@
         receiver: (sender: T) => void;
     }
 
-    interface IConnectionQuery<T extends Function> {
-        when: IWhen<T>;
-    }
-
     interface IWhen<T> {
-        (func: T): void;
+        (condition: T): void;
     }
 }
 
