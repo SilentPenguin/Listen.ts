@@ -15,12 +15,14 @@ class MyClass {
 
     @receiver
     myReciever (input: boolean) {
-        console.log("3");
+        console.log(input);
     }
 }
 
 var myInstance: MyClass = new MyClass()
 
 Listen.to.sender(myInstance.firstSender).with.receiver(myInstance.myReciever);
+Listen.to.sender(myInstance.secondSender).with.receiver(myInstance.myReciever);
 
 myInstance.firstSender(true);
+myInstance.secondSender(false);

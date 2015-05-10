@@ -14,7 +14,7 @@
         return function (): IMessenger<T> {
             var value = function (...rest: any[]) {
                 func.apply(this, rest);
-                this[key].targets.forEach(item => item.trigger(rest));
+                this[key].targets.forEach(item => item.trigger.apply(item, rest));
             }.bind(this);
 
             Object.defineProperty(this, key, { value: value });
@@ -37,7 +37,7 @@
         return function (): ISender<T> {
             var value = function (...rest: any[]) {
                 func.apply(this, rest);
-                this[key].targets.forEach(item => item.trigger(rest));
+                this[key].targets.forEach(item => item.trigger.apply(item, rest));
             }.bind(this);
 
             Object.defineProperty(this, key, { value: value });
