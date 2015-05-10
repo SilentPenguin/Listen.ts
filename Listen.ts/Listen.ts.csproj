@@ -24,6 +24,8 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="app.ts" />
+    <TypeScriptCompile Include="Listen - Copy.ts" />
+    <TypeScriptCompile Include="Listen.ts" />
   </ItemGroup>
   <ItemGroup>
     <None Include="web.Debug.config">

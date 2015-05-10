@@ -1,28 +1,27 @@
-﻿class Greeter {
-    element: HTMLElement;
-    span: HTMLElement;
-    timerToken: number;
+﻿/// <reference path="listen.ts" />
 
-    constructor(element: HTMLElement) {
-        this.element = element;
-        this.element.innerHTML += "The time is: ";
-        this.span = document.createElement('span');
-        this.element.appendChild(this.span);
-        this.span.innerText = new Date().toUTCString();
+class MyClass {
+    value: number;
+
+    @sender
+    firstSender(input: boolean) {
+        console.log("1");
+        console.log(this.value);
     }
 
-    start() {
-        this.timerToken = setInterval(() => this.span.innerHTML = new Date().toUTCString(), 500);
+    @sender
+    secondSender(input: boolean) {
+        console.log("2");
+        console.log(this.value);
     }
 
-    stop() {
-        clearTimeout(this.timerToken);
+    @receiver
+    myReciever (input: boolean) {
+        console.log("3");
+        console.log(this.value);
     }
 
+    constructor(value: number) {
+        this.value = value;
+    }
 }
-
-window.onload = () => {
-    var el = document.getElementById('content');
-    var greeter = new Greeter(el);
-    greeter.start();
-};
