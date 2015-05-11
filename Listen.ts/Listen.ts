@@ -144,6 +144,11 @@
             receiver: (receiver: T): IConnection<T> => {
                 var result: IConnection<T> = this.connection(receiver) || new Connection(this.sender, receiver);
                 return result;
+            },
+            function: (receiver: T): IConnection<T> => {
+                (<any>receiver).sources = [];
+                var result: IConnection<T> = this.connection(receiver) || new Connection(this.sender, receiver);
+                return result;
             }
         }
     }
@@ -151,6 +156,9 @@
     function Withhold<T extends Function>(): IWithhold<T> {
         return {
             receiver: (receiver: T): void => {
+                this.remove(receiver);
+            },
+            function: (receiver: T): void => {
                 this.remove(receiver);
             }
         }
@@ -204,11 +212,13 @@
     }
 
     interface IWith<T extends Function> {
-        receiver: (sender: T) => IConnection<T>;
+        receiver: (receiver: T) => IConnection<T>;
+        function: (func: T) => IConnection<T>;
     }
 
     interface IWithhold<T extends Function> {
         receiver: (sender: T) => void;
+        function: (func: T) => void;
     }
 
     interface IWhen<T> {

@@ -19,10 +19,15 @@ class MyClass {
     }
 }
 
+function test(input: boolean) {
+    console.log("test");
+}
+
 var myInstance: MyClass = new MyClass();
 
 Listen.to.sender(myInstance.firstSender).with.receiver(myInstance.myReciever).when(input => input);
 Listen.to.sender(myInstance.secondSender).with.receiver(myInstance.myReciever).when(input => input);
+Listen.to.sender(myInstance.firstSender).with.function(test);
 
 myInstance.firstSender(true);
 myInstance.secondSender(true);
