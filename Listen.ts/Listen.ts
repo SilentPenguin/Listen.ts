@@ -57,11 +57,7 @@
 
     function ReceiverConstructor<T extends Function>(key: string, func: T): any {
         return function (): IReceiver<T> {
-            var value = function (...rest: any[]) {
-                return func.apply(this, rest);
-            }.bind(this);
-
-            Object.defineProperty(this, key, { value: value });
+            Object.defineProperty(this, key, { value: func.bind(this) });
 
             this[key].sources = this[key].sources || [];
 
