@@ -146,7 +146,7 @@
                 return result;
             },
             function: (receiver: T): IConnection<T> => {
-                (<any>receiver).sources = [];
+                (<any>receiver).sources = (<any>receiver).sources || [];
                 var result: IConnection<T> = this.connection(receiver) || new Connection(this.sender, receiver);
                 return result;
             }
