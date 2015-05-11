@@ -15,7 +15,7 @@ interface IMyClass {
     MySender: (value: number) => void;
 }
 
-class MyClass implementes IMyClass
+class MyClass implements IMyClass
 {
     @sender
     MySender(value: number) { }
