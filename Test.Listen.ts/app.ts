@@ -1,4 +1,4 @@
-﻿/// <reference path="listen.ts" />
+﻿/// <reference path="../listen.ts/listen.ts" />
 
 class MyClass {
     value: number;

@@ -1,6 +1,6 @@
 ﻿module Listen {
     /*----------------*
-     *   Decorators   *
+     *   Decorators test  *
      *----------------*/
 
     function MessengerDecorator(): ISenderDecorator {
