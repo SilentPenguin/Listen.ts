@@ -34,8 +34,9 @@ class ListenTests extends Test.Case {
         Listen.to.sender(this.target.sender)
             .with.receiver(this.target.receiver);
 
-        this.target.sender(5);
-        Assert.that(this.target.value).is.equal.to(5);
+        this.target.sender(1);
+        Assert.that(this.target.value).is.equal.to(1);
+        Assert.that(this.target.altValue).is.not.equal.to(1);
     }
 
     @test
@@ -43,9 +44,10 @@ class ListenTests extends Test.Case {
         Listen.to.sender(this.target.messenger)
             .with.receiver(this.target.receiver);
 
-        this.target.messenger(5);
-        Assert.that(this.target.value).is.equal.to(5);
-        Assert.that(this.target.altValue).is.equal.to(5);
+        this.target.messenger(1);
+
+        Assert.that(this.target.value).is.equal.to(1);
+        Assert.that(this.target.altValue).is.equal.to(1);
     }
 
     @test
@@ -57,10 +59,15 @@ class ListenTests extends Test.Case {
         Listen.to.sender(this.target.messenger)
             .with.receiver(this.target.receiver);
 
-        this.target.sender(4);
-        Assert.that(this.target.value).is.equal.to(4);
-        this.target.messenger(5);
-        Assert.that(this.target.value).is.equal.to(5);
+        this.target.sender(1);
+
+        Assert.that(this.target.value).is.equal.to(1);
+        Assert.that(this.target.altValue).is.not.equal.to(1);
+
+        this.target.messenger(2);
+
+        Assert.that(this.target.value).is.equal.to(2);
+        Assert.that(this.target.altValue).is.equal.to(2);
     }
 
     @test
@@ -72,9 +79,10 @@ class ListenTests extends Test.Case {
         Listen.to.sender(this.target.messenger)
             .with.receiver(this.target.receiver);
 
-        this.target.sender(5);
-        Assert.that(this.target.altValue).is.equal.to(5);
-        Assert.that(this.target.value).is.equal.to(5);
+        this.target.sender(1);
+
+        Assert.that(this.target.altValue).is.equal.to(1);
+        Assert.that(this.target.value).is.equal.to(1);
     }
     
 }
@@ -90,18 +98,3 @@ window.onload = () => {
                       + (failed ? failed.length + ' tests failed. ' : '')
                       + (skipped ? skipped.length + ' tests skipped. ' : '');
 };
-
-/*
-function test(input: boolean) {
-    console.log("test");
-}
-
-var myInstance: MyClass = new MyClass();
-
-Listen.to.sender(myInstance.firstSender).with.receiver(myInstance.myReciever).when(input => input);
-Listen.to.sender(myInstance.secondSender).with.receiver(myInstance.myReciever).when(input => input);
-Listen.to.sender(myInstance.firstSender).with.function(test);
-
-myInstance.firstSender(true);
-myInstance.secondSender(true);
-*/
