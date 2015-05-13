@@ -27,22 +27,37 @@ class ListenTests extends Test.Case {
 
     before(): void {
         this.target = new MyClass();
+
+        Assert.that(this.target.value).is.undefined();
+        Assert.that(this.target.altValue).is.undefined();
     }
 
     @test
     SenderConnection(): void {
-        Listen.to.sender(this.target.sender)
-            .with.receiver(this.target.receiver);
+        Listen.to.sender(this.target.sender).with.receiver(this.target.receiver);
 
         this.target.sender(1);
+
         Assert.that(this.target.value).is.equal.to(1);
-        Assert.that(this.target.altValue).is.not.equal.to(1);
+        Assert.that(this.target.altValue).is.undefined();
+    }
+
+    @test
+    SenderDisconnection(): void {
+        Listen.to.sender(this.target.sender).with.receiver(this.target.receiver);
+        this.target.sender(1);
+
+        Assert.that(this.target.value).is.equal.to(1);
+
+        Listen.to.sender(this.target.sender).withhold.receiver(this.target.receiver);
+        this.target.sender(2);
+
+        Assert.that(this.target.value).is.not.equal.to(2);
     }
 
     @test
     MessengerConnection(): void {
-        Listen.to.sender(this.target.messenger)
-            .with.receiver(this.target.receiver);
+        Listen.to.sender(this.target.messenger).with.receiver(this.target.receiver);
 
         this.target.messenger(1);
 
@@ -53,16 +68,13 @@ class ListenTests extends Test.Case {
     @test
     MultiConnection(): void {
 
-        Listen.to.sender(this.target.sender)
-            .with.receiver(this.target.receiver);
-
-        Listen.to.sender(this.target.messenger)
-            .with.receiver(this.target.receiver);
+        Listen.to.sender(this.target.sender).with.receiver(this.target.receiver);
+        Listen.to.sender(this.target.messenger).with.receiver(this.target.receiver);
 
         this.target.sender(1);
 
         Assert.that(this.target.value).is.equal.to(1);
-        Assert.that(this.target.altValue).is.not.equal.to(1);
+        Assert.that(this.target.altValue).is.undefined();
 
         this.target.messenger(2);
 
@@ -73,11 +85,9 @@ class ListenTests extends Test.Case {
     @test
     ChainConnection(): void {
 
-        Listen.to.sender(this.target.sender)
-            .with.receiver(this.target.messenger);
+        Listen.to.sender(this.target.sender).with.receiver(this.target.messenger);
 
-        Listen.to.sender(this.target.messenger)
-            .with.receiver(this.target.receiver);
+        Listen.to.sender(this.target.messenger).with.receiver(this.target.receiver);
 
         this.target.sender(1);
 
