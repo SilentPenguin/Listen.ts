@@ -6,7 +6,7 @@ Listen.ts is inspired by the observer pattern implemented in Qt's Signals and Sl
 
 # What do the handlers look like
 
-Below is a stripped down example of the structure used for a test case
+Below is a stripped down example containing some of the ideas behind Liste.ts:
   
 ```typescript
 /// <reference path="listen.ts" />
