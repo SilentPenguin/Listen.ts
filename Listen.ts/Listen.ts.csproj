@@ -49,7 +49,7 @@
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
     <TypeScriptRemoveComments>false</TypeScriptRemoveComments>
     <TypeScriptSourceMap>true</TypeScriptSourceMap>
-    <TypeScriptOutDir>C:\Users\seppy\Documents\Visual Studio 2013\Projects\Listen.ts\Test.Listen.ts</TypeScriptOutDir>
+    <TypeScriptOutDir>..\Test.Listen.ts</TypeScriptOutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Release'">
     <TypeScriptRemoveComments>true</TypeScriptRemoveComments>
