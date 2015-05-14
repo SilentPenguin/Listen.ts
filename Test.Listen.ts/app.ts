@@ -1,6 +1,6 @@
 ﻿/// <reference path="../listen.ts/listen.ts" />
-/// <reference path="assert.ts" />
-/// <reference path="test.ts" />
+/// <reference path="../../test.ts/test.ts/assert.ts" />
+/// <reference path="../../test.ts/test.ts/test.ts" />
 
 class MyClass {
     value: number;
