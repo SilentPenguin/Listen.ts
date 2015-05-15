@@ -96,15 +96,8 @@ class ListenTests extends Test.Case {
     }
     
 }
+
 window.onload = () => {
-    var testcase: Test.Case = new ListenTests();
     var element = document.getElementById('content');
-    var pass = testcase.run();
-    var results = testcase.results();
-    var passed = results.filter(item=> item.state == Test.State.pass);
-    var failed = results.filter(item=> item.state == Test.State.fail);
-    var skipped = results.filter(item=> item.state == Test.State.skip);
-    element.innerHTML = (passed ? passed.length + ' tests passed. ' : '')
-                      + (failed ? failed.length + ' tests failed. ' : '')
-                      + (skipped ? skipped.length + ' tests skipped. ' : '');
-};
+    new Report.Html(new ListenTests).run(element);
+}
