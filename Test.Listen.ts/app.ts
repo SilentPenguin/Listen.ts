@@ -94,10 +94,8 @@ class ListenTests extends Test.Case {
         Assert.that(this.target.altValue).is.equal.to(1);
         Assert.that(this.target.value).is.equal.to(1);
     }
-    
 }
 
 window.onload = () => {
-    var element = document.getElementById('content');
-    new Report.Html(new ListenTests).run(element);
+    document.getElementById('content').innerHTML = new Report.Html(new ListenTests).run();
 }
