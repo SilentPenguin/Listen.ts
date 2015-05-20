@@ -95,6 +95,10 @@
         when(condition: T) {
             this.condition = <any>condition;
         }
+
+        always() {
+            this.condition = null;
+        }
     }
     
     /*----------------*
@@ -192,6 +196,7 @@
         sender: ISender<T>;
         receiver: IReceiver<T>;
         when: IWhen<T>;
+        always: IAlways;
     }
 
     interface ITo {
@@ -215,6 +220,10 @@
     interface IWithhold<T extends Function> {
         receiver: (sender: T) => void;
         function: (func: T) => void;
+    }
+
+    interface IAlways {
+        (): void;
     }
 
     interface IWhen<T> {
