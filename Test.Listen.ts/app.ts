@@ -94,6 +94,17 @@ class ListenTests extends Test.Case {
         Assert.that(this.target.altValue).is.equal.to(1);
         Assert.that(this.target.value).is.equal.to(1);
     }
+
+    @test
+    When(): void {
+
+        Listen.to.sender(this.target.sender).with.receiver(this.target.messenger).when(input => input == 1);
+
+        this.target.sender(1);
+
+        Assert.that(this.target.altValue).is.equal.to(1);
+        Assert.that(this.target.value).is.not.equal.to(1);
+    }
 }
 
 window.onload = () => {
